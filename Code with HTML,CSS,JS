@@ -1,0 +1,78 @@
+###otp.html###
+
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Phone Number OTP</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <h2>Enter Your Phone Number</h2>
+    <form onsubmit="return sendOTP()">
+      <input type="tel" id="phone" placeholder="Enter phone number" required>
+      <button type="submit">Send OTP</button>
+    </form>
+    <div id="otp-section" style="display: none;">
+      <h3>Enter OTP</h3>
+      <input type="text" id="otp-input" placeholder="Enter OTP" />
+      <button onclick="verifyOTP()">Verify OTP</button>
+    </div>
+  </div>
+  <script src="otp.js"></script>
+</body>
+</html>
+
+
+
+
+###style.css###
+
+body {
+  font-family: Arial, sans-serif;
+  background: #f0f0f0;
+  display: flex;
+  justify-content: center;
+  padding-top: 100px;
+}
+.container {
+  background: white;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px #ccc;
+  width: 300px;
+  text-align: center;
+}
+input, button {
+  width: 100%;
+  padding: 10px;
+  margin: 10px 0;
+}
+
+
+
+
+###otp.js###
+
+let generatedOTP = "";
+function sendOTP() {
+  const phone = document.getElementById("phone").value.trim();
+  if (phone === "" || phone.length < 10) {
+    alert("Please enter a valid phone number.");
+    return false;
+  }
+  generatedOTP = Math.floor(100000 + Math.random() * 900000).toString();
+  console.log("OTP Sent to " + phone + ": " + generatedOTP); // Simulated send
+  alert("OTP has been sent to your number (simulated). Check console.");
+
+  document.getElementById("otp-section").style.display = "block";
+  return false; // prevent actual form submission
+}
+function verifyOTP() {
+  const userOTP = document.getElementById("otp-input").value.trim();
+  if (userOTP === generatedOTP) {
+    alert("OTP Verified Successfully!");
+  } else {
+    alert("Incorrect OTP. Please try again.");
+  }
+}
